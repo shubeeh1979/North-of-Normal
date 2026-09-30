@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://northofnormal-sync.com/sitemap.xml

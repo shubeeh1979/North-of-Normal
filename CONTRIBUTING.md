@@ -1,4 +1,4 @@
-# Contributing to Melody & Mic
+# Contributing to North of Normal
 
 Thank you for your interest in contributing! This document provides guidelines and instructions for contributing.
 
@@ -33,16 +33,14 @@ Be respectful, inclusive, and professional in all interactions.
 ### Code Style
 
 - Follow existing code patterns
-- Use ESLint: `npm run lint`
-- Format with Prettier (if configured)
 - Write meaningful variable/function names
 - Add comments for complex logic
 
 ### Testing
 
 - Test your changes locally: `npm run dev`
-- Check for TypeScript errors: `npm run typecheck`
-- Ensure linting passes: `npm run lint`
+- Click through every page you touched and check the browser console for errors
+- Open a pull request to get a Netlify deploy preview
 
 ## Submitting Changes
 
@@ -87,9 +85,8 @@ Describe testing steps
 
 ## Checklist
 - [ ] Code follows style guidelines
-- [ ] Linting passes (`npm run lint`)
+- [ ] Checked on the Netlify deploy preview
 - [ ] No console errors or warnings
-- [ ] TypeScript types are correct
 ```
 
 ## Reporting Issues

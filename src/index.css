@@ -1,0 +1,37 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+html {
+  background: #0a0a0a;
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply font-body text-white antialiased;
+}
+
+@keyframes twinkle {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.btn-gold {
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-amber-300/40 bg-gradient-to-r from-amber-400 to-amber-600 px-7 py-3 font-semibold text-black shadow-[0_4px_24px_rgba(212,160,23,0.35)] transition hover:from-amber-300 hover:to-amber-500;
+}
+
+.btn-outline {
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-amber-500/30 px-7 py-3 font-medium text-white transition hover:bg-amber-500/10;
+}
+
+.card {
+  @apply rounded-2xl border border-amber-500/15 bg-[#141414] transition-colors hover:border-amber-500/30;
+}
+
+.divider {
+  @apply h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent;
+}
