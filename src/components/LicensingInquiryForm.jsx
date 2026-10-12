@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { base44 } from "@/api/base44Client";
 import { useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,53 +7,38 @@ import { Label } from "@/components/ui/label";
 import { CheckCircle, Loader2, Mail } from "lucide-react";
 import { toast } from "sonner";
 
+const FORM_NAME = "licensing-inquiry";
+
 export default function LicensingInquiryForm() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     message: "",
-    status: "new"
+    botField: ""
   });
 
   const [submitted, setSubmitted] = useState(false);
 
   const submitInquiry = useMutation({
     mutationFn: async (data) => {
-      // Create simplified inquiry record
-      const inquiry = await base44.entities.LicensingInquiry.create({
-        name: data.name,
-        email: data.email,
-        project_type: "other",
-        intended_use: data.message,
-        phone: data.phone,
-        status: "new"
-      });
-      
-      // Send notification email
-      try {
-        await base44.integrations.Core.SendEmail({
-          to: "info@northofnormal.com",
+      // Submitted to Netlify Forms; the form is registered via public/__forms.html
+      const response = await fetch("/__forms.html", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          "form-name": FORM_NAME,
           subject: `New Inquiry from ${data.name}`,
-          body: `
-New inquiry received:
-
-Name: ${data.name}
-Email: ${data.email}
-Phone: ${data.phone || 'N/A'}
-
-Message:
-${data.message}
-
----
-Reply to this email to respond to the inquiry.
-          `
-        });
-      } catch (emailError) {
-        console.error("Email notification failed:", emailError);
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          message: data.message,
+          "bot-field": data.botField,
+        }).toString(),
+      });
+      if (!response.ok) {
+        throw new Error(`Form submission failed (${response.status})`);
       }
-
-      return inquiry;
     },
     onSuccess: () => {
       setSubmitted(true);
@@ -94,7 +78,7 @@ Reply to this email to respond to the inquiry.
             We've received your message and will get back to you within 24-48 hours.
           </p>
           <p className="text-sm text-gray-400">
-            A confirmation has been sent to <span className="text-amber-400">{formData.email}</span>
+            We'll reply to <span className="text-amber-400">{formData.email}</span>
           </p>
         </div>
       </div>
@@ -102,7 +86,24 @@ Reply to this email to respond to the inquiry.
   }
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-2xl mx-auto">
+    <form
+      name={FORM_NAME}
+      method="POST"
+      data-netlify="true"
+      onSubmit={handleSubmit}
+      className="max-w-2xl mx-auto"
+    >
+      <input type="hidden" name="form-name" value={FORM_NAME} />
+      <p className="hidden">
+        <label>
+          Don't fill this out:{" "}
+          <input
+            name="bot-field"
+            value={formData.botField}
+            onChange={(e) => handleChange('botField', e.target.value)}
+          />
+        </label>
+      </p>
       <div className="bg-gradient-to-br from-white/5 to-transparent backdrop-blur-sm rounded-3xl p-6 md:p-8 border border-amber-500/10">
         <div className="space-y-6">
           <div className="grid md:grid-cols-2 gap-4">
