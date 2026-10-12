@@ -1,5 +1,5 @@
 {
-  "name": "base44-app",
+  "name": "north-of-normal",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,10 +11,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@base44/sdk": "^0.8.52",
-    "@base44/vite-plugin": "^1.0.44",
     "@hello-pangea/dnd": "^17.0.0",
     "@hookform/resolvers": "^4.1.2",
+    "@netlify/database": "^2.0.1",
     "@radix-ui/react-accordion": "^1.2.3",
     "@radix-ui/react-alert-dialog": "^1.1.6",
     "@radix-ui/react-aspect-ratio": "^1.1.2",
@@ -77,6 +76,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
+    "@netlify/functions": "^6.0.2",
     "@types/node": "^22.13.5",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
